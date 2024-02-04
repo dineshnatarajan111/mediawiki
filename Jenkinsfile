@@ -7,13 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                sh"""
-                git clone "https://github.com/dineshnatarajan111/mediawiki.git" --branch main
-                """
-            }
-        }
         stage('Get variables'){
             steps {
                 sh"""
