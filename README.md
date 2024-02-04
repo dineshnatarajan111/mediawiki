@@ -56,11 +56,12 @@ This repo is used to create mediawiki resource in kubernetes using HELM chart
 10. Through the UI create LocalSettings.php
 11. For Database related fields use the floowing
     
-    |Field|Value|
-    |Database host|Service-IP of sql-database|
-    |Database name|DatabaseName which is create in the above steps|
-    |Database username|default to root|
-    |Database password|Password which is provided in the values.yaml of database chart|
+    | Field | Value |
+    |:-------------:|:-------------:|
+    | Database host | Service-IP of sql-database |
+    | Database name | DatabaseName which is create in the above steps |
+    | Database username | default to root |
+    | Database password | Password which is provided in the values.yaml of database chart |
 12. upload the local settings.php to the path /var/www/html/ in running application pod
    ```bash
    kubectl cp /path/to/file/LocalSettings.php <podname>:/var/www/html
