@@ -15,11 +15,11 @@ This repo is used to create mediawiki resource in kubernetes using HELM chart
 ### Creation of Kuberenetes resources
 1. To create application in kubernetes, Clone this repository and execute
     ```bash
-    helm install <chartname> -f ./mediawiki-helm/application/values.yaml ./mediawiki-helm/application
+    helm install <chartname> -f ./mediawiki/application/values.yaml ./mediawiki/application
     ```
 2. To create database resource in kubernetes execute
    ```bash
-   helm install <chartname> -f ./mediawiki-helm/database/values.yaml ./mediawiki-helm/database
+   helm install <chartname> -f ./mediawiki/database/values.yaml ./mediawiki/database
    ```
 3. To create a Database in the running sql pod, get the pod name by running
    ```bash
