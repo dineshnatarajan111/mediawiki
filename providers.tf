@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "azurerm" {
-    storage_account_name = "terrafrom"
+    storage_account_name = "csg100320034cb2e981"
     container_name = "dev"
     key = ""
   }
