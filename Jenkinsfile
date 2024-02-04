@@ -40,18 +40,18 @@ pipeline {
                     if(operation != 'DESTROY'){
                         if(resource == 'ALL'){
                             sh"""
-                            helm upgrade --install $application -f ./ST-Mediawiki/$namespace/application/values.yaml ./mediawiki/application -n $namespace
-                            helm upgrade --install $database -f ./ST-Mediawiki/$namespace/database/values.yaml ./mediawiki/database -n $namespace
+                            helm upgrade --install $application -f ./ST-Mediawiki/$namespace/application/values.yaml ./application -n $namespace
+                            helm upgrade --install $database -f ./ST-Mediawiki/$namespace/database/values.yaml ./database -n $namespace
                             """
                         }
                         else if(resource == 'APPLICATION'){
                             sh"""
-                            helm upgrade --install $application -f ./ST-Mediawiki/$namespace/application/values.yaml ./mediawiki/application -n $namespace
+                            helm upgrade --install $application -f ./ST-Mediawiki/$namespace/application/values.yaml ./application -n $namespace
                             """
                         }
                         else if(resource == 'DATABASE'){
                             sh"""
-                            helm upgrade --install $database -f ./ST-Mediawiki/$namespace/database/values.yaml ./mediawiki/database -n $namespace
+                            helm upgrade --install $database -f ./ST-Mediawiki/$namespace/database/values.yaml ./database -n $namespace
                             """
                         }
                     }
