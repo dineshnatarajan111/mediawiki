@@ -38,14 +38,14 @@ pipeline {
                 }
             }
         }
-        if(params.OPERATION != 'DESTROY'){
-            stage('Create Resource'){
-                steps{
-                    script{
-                        def namespace = params.NAMESPACE
-                        def resource = params.RESOURCES
-                        def application = "mediawiki-app"
-                        def database = "mediawiki-db"
+        stage('Resource Operation'){
+            steps{
+                script{
+                    def namespace = params.NAMESPACE
+                    def resource = params.RESOURCES
+                    def application = "mediawiki-app"
+                    def database = "mediawiki-db"
+                    if(params.OPERATION != 'DESTROY'){
                         if(resource == 'ALL'){
                             sh"""
                             helm upgrade --install $application -f ./ST-Mediawiki/$namespace/application/values.yaml ./mediawiki/application -n $namespace
@@ -63,17 +63,7 @@ pipeline {
                             """
                         }
                     }
-                }
-            }
-        }
-        if(params.OPERATION == 'DESTROY'){
-            stage('Delete Resource'){
-                steps{
-                    script{
-                        def namespace = params.NAMESPACE
-                        def resource = params.RESOURCES
-                        def application = "mediawiki-app"
-                        def database = "mediawiki-db"
+                    else if(params.OPERATION == 'DESTROY'){
                         if(resource == 'ALL'){
                             sh"""
                             helm uninstall $application -n $namespace
