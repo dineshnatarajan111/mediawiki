@@ -21,21 +21,6 @@ pipeline {
                 """
             }
         }
-        stage('Get credentials') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'AZURE_SPN_CREDENTIALS', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    script {
-                        def namespace = params.NAMESPACE
-                        sh """
-                        az login --service-principal --username "$USERNAME" --password "$PASSWORD" --tenant 8b291cd0-45de-4938-9a8c-5dd465d71ada
-                        az account list
-                        az account set --subscription 712bd090-a32d-4751-8248-1d16ae47d011
-                        az aks get-credentials --resource-group Az-dev --name aks-blue-dev --overwrite-existing
-                        """
-                    }
-                }
-            }
-        }
         stage('Resource Operation'){
             steps{
                 script{
@@ -47,6 +32,10 @@ pipeline {
                     def U_TEXT='key = "'+ namespace +'.tfstate"'
                     sh"""
                     cd ./mediawiki
+                    az login --service-principal --username "$USERNAME" --password "$PASSWORD" --tenant 8b291cd0-45de-4938-9a8c-5dd465d71ada
+                    az account list
+                    az account set --subscription 712bd090-a32d-4751-8248-1d16ae47d011
+                    
                     sed -i 's/$TEXT/$U_TEXT/' ./providers.tf
 
                     terraform init -reconfigure
