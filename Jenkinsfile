@@ -45,22 +45,21 @@ pipeline {
 
                     def TEXT='key = ""'
                     def U_TEXT='key = "'+ namespace +'.tfstate"'
-                        sh"""
-                        cd ./mediawiki
-                        sed -i 's/$TEXT/$U_TEXT/' ./providers.tf
+                    sh"""
+                    cd ./mediawiki
+                    sed -i 's/$TEXT/$U_TEXT/' ./providers.tf
 
-                        terraform workspace select $namespace || terrafrom workspace new $namespace
-                        terraform init -reconfigure
-                        if [ "$dryrun" == "YES" ]; then
-                        terraform plan -var-file ../ST-Mediawiki/$namespace/values.yaml
-                        fi
-                        if [ "$operation" != "DESTROY" ]; then
-                        terraform apply -var-file ../ST-Mediawiki/$namespace/values.yaml -auto-approve
-                        elif [ "$operation" == "DESTROY" ]; then
-                        terraform destroy -var-file ../ST-Mediawiki/$namespace/values.yaml -auto-approve
-                        fi
-                        """
-                    }
+                    terraform workspace select $namespace || terrafrom workspace new $namespace
+                    terraform init -reconfigure
+                    if [ "$dryrun" == "YES" ]; then
+                    terraform plan -var-file ../ST-Mediawiki/$namespace/values.yaml
+                    fi
+                    if [ "$operation" != "DESTROY" ]; then
+                    terraform apply -var-file ../ST-Mediawiki/$namespace/values.yaml -auto-approve
+                    elif [ "$operation" == "DESTROY" ]; then
+                    terraform destroy -var-file ../ST-Mediawiki/$namespace/values.yaml -auto-approve
+                    fi
+                    """
                 }
             }
         }
