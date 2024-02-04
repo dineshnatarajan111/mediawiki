@@ -11,15 +11,17 @@ This repo is used to create mediawiki resource in kubernetes using HELM chart
    ```bash
    brew install helm
    ```
-4. To create application in kubernetes, Clone this repository and execute
+
+###Creation of Kuberenetes resources
+1. To create application in kubernetes, Clone this repository and execute
     ```bash
     helm install <chartname> -f ./mediawiki-helm/application/values.yaml ./mediawiki-helm/application
     ```
-5. To create database resource in kubernetes execute
+2. To create database resource in kubernetes execute
    ```bash
    helm install <chartname> -f ./mediawiki-helm/database/values.yaml ./mediawiki-helm/database
    ```
-6. To create a Database in the running sql pod, get the pod name by running
+3. To create a Database in the running sql pod, get the pod name by running
    ```bash
    kubectl get pods -n <namespace>
    ```
@@ -44,17 +46,17 @@ This repo is used to create mediawiki resource in kubernetes using HELM chart
    ```bash
    SHOW DATABASES;
    ```
-7. Get the External-IP of the mediawiki-service and Cluster-IP for the sql DATABASE
+4. Get the External-IP of the mediawiki-service and Cluster-IP for the sql DATABASE
    ```bash
    kubectl get service -n <namespace>
    ```
-8. Browse the Ip address to work on the application
-9.  Get the name of the pod using
+5. Browse the Ip address to work on the application
+6.  Get the name of the pod using
    ```bash
    kubectl get pods -n <namespace>
    ```
-10. Through the UI create LocalSettings.php
-11. For Database related fields use the floowing
+7.  Through the UI create LocalSettings.php
+8.  For Database related fields use the floowing
     
     | Field | Value |
     |:-------------:|:-------------:|
@@ -62,7 +64,7 @@ This repo is used to create mediawiki resource in kubernetes using HELM chart
     | Database name | DatabaseName which is create in the above steps |
     | Database username | default to root |
     | Database password | Password which is provided in the values.yaml of database chart |
-12. upload the local settings.php to the path /var/www/html/ in running application pod
+9.  Upload the local settings.php to the path /var/www/html/ in running application pod
    ```bash
    kubectl cp /path/to/file/LocalSettings.php <podname>:/var/www/html
    ```
