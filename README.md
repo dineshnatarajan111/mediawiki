@@ -1,70 +1,44 @@
-# HELM CHART for MEDIAWIKI
-This repo is used to create mediawiki resource in kubernetes using HELM chart
+# TERRAFORM TO CREATE AKS
+Main aim is to create AKS in Azure using terraform script and automate it using jenkins
 
 ### Prerequisite
-1. Create a Kubernetes instance. In my case I am using AKS.
-2. Install kubectl
+1. Install terraform to execute terraform scripts in local
    ```bash
-   brew install kubectl
+   brew install terraform
    ```
-3. Install HELM Client in local
+2. Install Azure cli to get the credential for terraform execution
    ```bash
-   brew install helm
-   ```
-
-### Creation of Kuberenetes resources
-1. To create application in kubernetes, Clone this repository and execute
-    ```bash
-    helm install <chartname> -f ./mediawiki/application/values.yaml ./mediawiki/application
-    ```
-2. To create database resource in kubernetes execute
-   ```bash
-   helm install <chartname> -f ./mediawiki/database/values.yaml ./mediawiki/database
-   ```
-3. To create a Database in the running sql pod, get the pod name by running
-   ```bash
-   kubectl get pods -n <namespace>
-   ```
-   
-   shell inside the pod running SQL server
-   ```bash
-   kubectl exec -it <mysql-pod-name> -- /bin/bash
+   brew update && brew install azure-cli
    ```
 
-   login to the server using
+### Create resources using terrafrom
+1. Login using az-cli to get the tenant-id, subcription-id, and user-id
    ```bash
-   mysql -u root -p
+   az login
    ```
-
-   Enter the root password which is used in values.yaml in database chart when prompted.
-
-   To create database:
+2. To ensure login
    ```bash
-   CREATE DATABASE <database_name>;
+   az account list
    ```
-   To verify the database has been created:
+3. To execute terraform script clone the repo with branch set to terraform
    ```bash
-   SHOW DATABASES;
+   git clone https://github.com/dineshnatarajan111/mediawiki.git --branch terraform
    ```
-4. Get the External-IP of the mediawiki-service and Cluster-IP for the sql DATABASE
+4. change directory to mediawiki and execute terraform init
    ```bash
-   kubectl get service -n <namespace>
+   cd mediawiki
+   terrafrom init -reconfigure
    ```
-5. Browse the Ip address to work on the application
-6.  Get the name of the pod using
+5. Do a terraform plan to verify the resource to be created
    ```bash
-   kubectl get pods -n <namespace>
+   terraform plan -var-file ./inputs/dev.tfvars -out dev.tfplan
    ```
-7.  Through the UI create LocalSettings.php
-8.  For Database related fields use the floowing
-    
-    | Field | Value |
-    |:-------------:|:-------------:|
-    | Database host | Service-IP of sql-database |
-    | Database name | DatabaseName which is create in the above steps |
-    | Database username | default to root |
-    | Database password | Password which is provided in the values.yaml of database chart |
-9.  Upload the local settings.php to the path /var/www/html/ in running application pod
+6. After verification of plan do apply to create resource in cloud
    ```bash
-   kubectl cp /path/to/file/LocalSettings.php <podname>:/var/www/html
+   terraform apply "dev.tfplan"
    ```
+7. To destroy the resource created using terrafrom
+   ```bash
+   terraform destroy -var-file ./inputs/dev.tfvars
+   ```
+### Integrating Jenkins to create resources
