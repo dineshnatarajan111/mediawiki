@@ -12,7 +12,7 @@ This repo is used to create mediawiki resource in kubernetes using HELM chart
    brew install helm
    ```
 
-###Creation of Kuberenetes resources
+### Creation of Kuberenetes resources
 1. To create application in kubernetes, Clone this repository and execute
     ```bash
     helm install <chartname> -f ./mediawiki-helm/application/values.yaml ./mediawiki-helm/application
