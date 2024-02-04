@@ -7,6 +7,12 @@ terraform {
         version = "~>3.0.2"
     }
   }
+
+  backend "azurerm" {
+    storage_account_name = "terrafrom"
+    container_name = "dev"
+    key = ""
+  }
   
 }
 
