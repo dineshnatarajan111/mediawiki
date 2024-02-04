@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "mediawiki.fullname" . }}
+  namepsace: {{ .Values.namespace }}
   labels:
     {{- include "mediawiki.labels" . | nindent 4 }}
 spec:
