@@ -52,12 +52,12 @@ pipeline {
                         terraform workspace select $namespace || terrafrom workspace new $namespace
                         terraform init -reconfigure
                         if [ "$dryrun" == "YES" ]; then
-                        terraform plan -var-file ./ST-Mediawiki/$namespace/values.yaml
+                        terraform plan -var-file ../ST-Mediawiki/$namespace/values.yaml
                         fi
                         if [ "$operation" != "DESTROY" ]; then
-                        terraform apply -var-file ./ST-Mediawiki/$namespace/values.yaml -auto-approve
+                        terraform apply -var-file ../ST-Mediawiki/$namespace/values.yaml -auto-approve
                         elif [ "$operation" == "DESTROY" ]; then
-                        terraform destroy -var-file ./ST-Mediawiki/$namespace/values.yaml -auto-approve
+                        terraform destroy -var-file ../ST-Mediawiki/$namespace/values.yaml -auto-approve
                         fi
                         """
                     }
