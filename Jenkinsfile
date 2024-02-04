@@ -14,13 +14,11 @@ pipeline {
                 """
             }
         }
-        if(params.OPERATION != 'DESTROY'){
-            stage('Get variables'){
-                steps {
-                    sh"""
-                    git clone "https://github.com/dineshnatarajan111/ST-Mediawiki.git" --branch helm
-                    """
-                }
+        stage('Get variables'){
+            steps {
+                sh"""
+                git clone "https://github.com/dineshnatarajan111/ST-Mediawiki.git" --branch helm
+                """
             }
         }
         stage('Get credentials') {
