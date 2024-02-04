@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "mediawiki-sql-database.fullname" . }}
-  namespace: {{ .Values.namespace }}
-data:
-  MYSQL_ROOT_PASSWORD: {{ .Values.RootPassword }}
