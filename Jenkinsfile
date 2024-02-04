@@ -30,7 +30,7 @@ pipeline {
                         az login --service-principal --username "$USERNAME" --password "$PASSWORD" --tenant 8b291cd0-45de-4938-9a8c-5dd465d71ada
                         az account list
                         az account set --subscription 712bd090-a32d-4751-8248-1d16ae47d011
-                        az aks get-credentials --resource-group Az-$namespace --name aks-blue-$namespace --overwrite-existing
+                        az aks get-credentials --resource-group Az-dev --name aks-blue-dev --overwrite-existing
                         """
                     }
                 }
