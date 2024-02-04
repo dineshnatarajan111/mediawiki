@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "mediawiki.fullname" . }}
-  namepsace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace }}
 data:
   MEDIAWIKI_SECRET_KEY: "589ba1f285a59d2515345c52a5820d4d1da4ef2cae3ff3471400bef23c39ec7b"
   MEDIAWIKI_SITE_NAME: "devops"

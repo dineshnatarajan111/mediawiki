@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "mediawiki-sql-database.fullname" . }}
-  namepsace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     {{- include "mediawiki-sql-database.labels" . | nindent 4 }}
 spec:

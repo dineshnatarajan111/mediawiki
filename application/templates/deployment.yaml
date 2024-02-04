@@ -2,13 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "mediawiki.fullname" . }}
-  namepsace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace }}
   labels:
     {{- include "mediawiki.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "mediawiki.selectorLabels" . | nindent 6 }}
