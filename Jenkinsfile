@@ -45,7 +45,8 @@ pipeline {
                     def resource = params.RESOURCES
                     def application = "mediawiki-app"
                     def database = "mediawiki-db"
-                    if(params.OPERATION != 'DESTROY'){
+                    def operation = params.OPERATION
+                    if(operation != 'DESTROY'){
                         if(resource == 'ALL'){
                             sh"""
                             helm upgrade --install $application -f ./ST-Mediawiki/$namespace/application/values.yaml ./mediawiki/application -n $namespace
@@ -63,7 +64,7 @@ pipeline {
                             """
                         }
                     }
-                    else if(params.OPERATION == 'DESTROY'){
+                    else if(operation == 'DESTROY'){
                         if(resource == 'ALL'){
                             sh"""
                             helm uninstall $application -n $namespace
