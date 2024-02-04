@@ -49,8 +49,8 @@ pipeline {
                     cd ./mediawiki
                     sed -i 's/$TEXT/$U_TEXT/' ./providers.tf
 
-                    terraform workspace select $namespace || terrafrom workspace new $namespace
                     terraform init -reconfigure
+                    terraform workspace select $namespace || terraform workspace new $namespace
                     if [ "$dryrun" == "YES" ]; then
                     terraform plan -var-file ../ST-Mediawiki/$namespace/values.yaml
                     fi
